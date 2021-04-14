@@ -2,23 +2,23 @@ package main;
 
 public class IslandFinder {
 	
-	// Test array
-	static int[][] islands = { { 1, 1, 0, 0, 0 }, 
+	
+	static int[][] islands = { { 1, 1, 0, 0, 0 }, // Test array
 							   { 0, 1, 1, 0, 0 }, 
 							   { 0, 0, 1, 0, 1 }, 
 							   { 1, 0, 0, 0, 1 },
 							   { 1, 1, 0, 0, 1 },
 							   { 1, 1, 1, 0, 0 } };
-	static final int ROWS = 6;
-	static final int COLS = 5;
+	static final int ROWS = 6; // Number of rows in the test array
+	static final int COLS = 5; // Number of columns in hte test array
 	
-	static int size = 0;
-	static int tempSize = 0;
+	static int size = 0; // Size of the current biggest island
+	static int tempSize = 0; // Size of the island currently being checked
 	
-	static int[][] biggestIsland = new int[ROWS][COLS];
-	static int[][] tempIsland = new int[ROWS][COLS];
+	static int[][] biggestIsland = new int[ROWS][COLS]; // Current biggest island
+	static int[][] tempIsland = new int[ROWS][COLS]; // Current island being checked
 	
-	static int[][] discovered = new int[ROWS][COLS];
+	static int[][] discovered = new int[ROWS][COLS]; // Land which has already been accounted for
 	
 	public static void main(String[] args) {
 
@@ -37,17 +37,19 @@ public class IslandFinder {
 	}
 	
 	
-	
+	// Iterate through the islands matrix, assign biggest island and size to global variables
 	private static void findBiggestIsland(){
 		
-		for(int i = 0; i < ROWS; i++) {
+		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLS; j++) {
 				if(promising(i,j)){
-					checkAround(i,j);
+					checkAround(i,j); // If land is promising, check around that land for other promising land
+					// If current island is bigger than the current biggest, reassign biggest to current
 					if (tempSize > size) {
 						biggestIsland = tempIsland;
 						size = tempSize;
 					}
+					// Re-initialize temporary variables
 					tempSize = 0;
 					tempIsland = new int[ROWS][COLS];
 					
@@ -55,10 +57,12 @@ public class IslandFinder {
 				
 			}
 		
-		}
+		 }
 	}
 	
+	// Checks all directions around a given plot of land, recursively
 	private static void checkAround(int row, int col) {
+		
 		// Check above
 		if(promising(row-1,col)) {
 			checkAround(row-1,col);
@@ -93,6 +97,7 @@ public class IslandFinder {
 		}
 	}
 		
+	// Decides if a plot of land is promising (is a valid index, is land (== 1), and has not yet been checked)
 	private static boolean promising(int row, int col) {
 
 		if(row < 0 || col < 0 || row >= ROWS || col >= COLS)
