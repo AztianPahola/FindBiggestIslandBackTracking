@@ -1,17 +1,24 @@
 package main;
 
 public class IslandFinder {
-
+	
+	// Test array
+	static int[][] islands = { { 1, 1, 0, 0, 0 }, 
+							   { 0, 1, 1, 0, 0 }, 
+							   { 0, 0, 1, 0, 1 }, 
+							   { 1, 0, 0, 0, 1 },
+							   { 0, 1, 0, 1, 1 },
+							   { 1, 0, 0, 0, 0 } };
+	static final int ROWS = 6;
+	static final int COLS = 5;
+	static int size = 0;
+	static int tempSize = 0;
+	static int[][] tempIsland = new int[ROWS][COLS];
+	static int[][] biggestIsland = new int[ROWS][COLS];
+	static int[][] discovered = new int[ROWS][COLS];
 	public static void main(String[] args) {
 
-		// Test array
-		int[][] islands = { { 1, 1, 0, 0, 0 }, 
-							{ 0, 1, 1, 0, 0 }, 
-							{ 0, 0, 1, 0, 1 }, 
-							{ 1, 0, 0, 0, 1 },
-							{ 0, 1, 0, 1, 1 },
-							{ 1, 0, 0, 0, 0 } };
-		int[][] biggestIsland = findBiggestIsland(islands, 0, 0);
+		findBiggestIsland(0, 0);
 
 		for (int[] row : biggestIsland) {
 			for (int x : row) {
@@ -21,15 +28,9 @@ public class IslandFinder {
 		}
 	}
 	
-	static final int ROWS = 6;
-	static final int COLS = 5;
-	static int size = 0;
-	static int tempSize = 0;
-	static int[][] tempIsland = new int[ROWS][COLS];
-	static int[][] biggestIsland = new int[ROWS][COLS];
-	static int[][] discovered = new int[ROWS][COLS];
 	
-	private static void findBiggestIsland(int[][] islands, int row, int col, int size){
+	
+	private static void findBiggestIsland(int row, int col){
 		
 		for(int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLS; j++) {
@@ -45,60 +46,49 @@ public class IslandFinder {
 	}
 	
 	private static void checkAround(int row, int col) {
-		
+		// Check above
+		if(promising(row-1,col)) {
+			checkAround(row-1,col);
+		}
+		// Check right-above diagonal
+		if(promising(row-1,col+1)) {
+			checkAround(row-1,col);
+		}
+		// Check right
+		if(promising(row,col+1)) {
+			checkAround(row-1,col);
+		}
+		// Check right-below diagonal
+		if(promising(row+1,col+1)) {
+			checkAround(row-1,col);
+		}
+		// Check below
+		if(promising(row+1,col)) {
+			checkAround(row-1,col);
+		}
+		// Check left-below diagonal
+		if(promising(row+1,col-1)) {
+			checkAround(row-1,col);
+		}
+		// Check left
+		if(promising(row,col-1)) {
+			checkAround(row-1,col);
+		}
+		// Check left-above diagonal
+		if(promising(row-1,col-1)) {
+			checkAround(row-1,col);
+		}
 	}
 		
-		
-//		int[][] tempIsland = new int[ROWS][COLS];
-//		int size = 0;
-//		
-//		
-//		if (row == ROWS-1) {
-//			if (col == COLS-1) {
-//				return;
-//			}
-//			else {
-//				if (promising(row,col)){
-//					size++;
-//					tempIsland[row][col] = 1;
-//					discovered[row][col] = 1;
-//					size++;
-//				}
-//				else {
-//					if(size > )
-//					size = 0;
-//					
-//				}
-//				findBiggestIsland(islands,row, col+1,size);
-//			}
-//		}
-//		else {
-//			if (col == COLS-1) {
-//				if (promising(row,col)){
-//					size++;
-//					tempIsland[row][col] = 1;
-//					discovered[row][col] = 1;
-//					findBiggestIsland(islands,);
-//				}
-//			}
-//			else {
-//				if (promising(row,col)){
-//					size++;
-//					tempIsland[row][col] = 1;
-//					discovered[row][col] = 1;
-//					findBiggestIsland(islands,);
-//				}
-//			}
-//		}
-//				if (promising(row,col)){
-//					size++;
-//					tempIsland[row][col] = 1;
-//					discovered[row][col] = 1;
-//				}
-//				findBiggestIsland(islands,i);
-
 	private static boolean promising(int row, int col) {
 
+		if(islands[row][col] == 1 && discovered[row][col] == 0){
+			tempSize += 1;
+			discovered[row-1][col] = 1;
+			tempIsland[row][col] = 1;
+			return true;
+		}
+		return false;
 	}
 
 }
