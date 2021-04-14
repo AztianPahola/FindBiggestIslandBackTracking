@@ -10,7 +10,7 @@ public class IslandFinder {
 							   { 1, 1, 0, 0, 1 },
 							   { 1, 1, 1, 0, 0 } };
 	static final int ROWS = 6; // Number of rows in the test array
-	static final int COLS = 5; // Number of columns in hte test array
+	static final int COLS = 5; // Number of columns in the test array
 	
 	static int size = 0; // Size of the current biggest island
 	static int tempSize = 0; // Size of the island currently being checked
