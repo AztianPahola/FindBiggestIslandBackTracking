@@ -6,8 +6,8 @@ public class IslandFinder {
 	static int[][] islands = { { 1, 1, 0, 0, 0 }, // Test array
 							   { 0, 1, 1, 0, 0 }, 
 							   { 0, 0, 1, 0, 1 }, 
-							   { 1, 0, 0, 0, 1 },
-							   { 1, 1, 0, 0, 1 },
+							   { 1, 0, 1, 0, 1 },
+							   { 1, 1, 0, 1, 1 },
 							   { 1, 1, 1, 0, 0 } };
 	static final int ROWS = 6; // Number of rows in the test array
 	static final int COLS = 5; // Number of columns in the test array
